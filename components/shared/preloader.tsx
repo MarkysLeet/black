@@ -22,11 +22,12 @@ export const Preloader = () => {
     >
       <div className="flex flex-col items-center gap-4">
         <div className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/40">
-          <svg width="64" height="64" viewBox="0 0 24 24" stroke="#d4af37" fill="none" strokeWidth="1.2">
-            <path d="M12 2v20" />
-            <path d="M6 7c3 0 4-4 6-4s3 4 6 4" />
-            <path d="M7 13c2 0 3-3 5-3s3 3 5 3" />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://i.imgur.com/sND6vWC.png"
+            alt="Black Island logo"
+            className="h-16 w-16 object-contain"
+          />
         </div>
         <p className="font-playfair text-2xl text-white">Black Island</p>
       </div>

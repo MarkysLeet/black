@@ -21,11 +21,12 @@ export const Hero = () => {
       <div className="relative z-10 flex flex-col items-center text-center">
         <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
           <div className="flex h-28 w-28 items-center justify-center rounded-full border border-white/30">
-            <svg width="64" height="64" viewBox="0 0 24 24" stroke="#ffffff" fill="none" strokeWidth="1.2">
-              <path d="M12 2v20" />
-              <path d="M6 7c3 0 4-4 6-4s3 4 6 4" />
-              <path d="M7 13c2 0 3-3 5-3s3 3 5 3" />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://i.imgur.com/sND6vWC.png"
+              alt="Black Island logo"
+              className="h-16 w-16 object-contain"
+            />
           </div>
         </motion.div>
         <motion.h1

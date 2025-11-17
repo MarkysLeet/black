@@ -31,7 +31,13 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
       <SheetContent>
         <div className="flex h-full flex-col gap-10">
           <div className="flex items-center justify-between">
-            <p className="font-playfair text-2xl text-white">Black Island</p>
+            <button
+              type="button"
+              onClick={() => onOpenChange(false)}
+              className="font-playfair text-2xl text-white"
+            >
+              Black Island
+            </button>
             <div className="flex gap-3">
               {(['ru', 'en'] as Locale[]).map((lng) => (
                 <button
@@ -49,7 +55,7 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
           <nav className="space-y-6 text-3xl font-playfair text-white">
             {links.map((link, index) => (
               <motion.div key={link.href} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * index }}>
-                <Link href={link.href} onClick={() => onOpenChange(false)} className="block">
+                <Link href={link.href} onClick={() => onOpenChange(false)} className="block font-medium">
                   {link.label}
                 </Link>
               </motion.div>

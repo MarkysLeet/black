@@ -87,7 +87,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       headline: 'Black Island',
       subline: 'Cafe Restaurant',
       cuisine: 'Русская и средиземноморская кухня • Коньяалты',
-      hours: '08:00 – 22:00 ежедневно',
+      hours: '10:00 – 00:00 ежедневно',
       button: 'Забронировать столик',
     },
     sections: {
@@ -166,7 +166,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       headline: 'Black Island',
       subline: 'Cafe Restaurant',
       cuisine: 'Russian & Mediterranean cuisine • Konyaaltı',
-      hours: '08:00 – 22:00 daily',
+      hours: '10:00 – 00:00 daily',
       button: 'Reserve a Table',
     },
     sections: {

@@ -38,11 +38,12 @@ export const Header = () => {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-3 text-white">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/50">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-              <path d="M12 2v20" />
-              <path d="M6 7c3 0 4-4 6-4s3 4 6 4" />
-              <path d="M7 13c2 0 3-3 5-3s3 3 5 3" />
-            </svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://i.imgur.com/sND6vWC.png"
+              alt="Black Island logo"
+              className="h-8 w-8 object-contain"
+            />
           </div>
           <div>
             <p className="font-playfair text-2xl text-white">Black Island</p>
