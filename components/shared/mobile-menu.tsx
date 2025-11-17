@@ -1,0 +1,71 @@
+'use client';
+
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
+import { whatsAppLink } from '@/lib/utils';
+import type { Dictionary, Locale } from '@/lib/i18n/dictionary';
+
+interface MobileMenuProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  links: { href: string; label: string }[];
+  dictionary: Dictionary;
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+}
+
+export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setLocale }: MobileMenuProps) => {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent>
+        <div className="flex h-full flex-col gap-10">
+          <div className="flex items-center justify-between">
+            <p className="font-playfair text-2xl text-white">Black Island</p>
+            <div className="flex gap-3">
+              {(['ru', 'en'] as Locale[]).map((lng) => (
+                <button
+                  key={lng}
+                  onClick={() => setLocale(lng)}
+                  className={`text-sm uppercase tracking-[0.2em] ${
+                    locale === lng ? 'text-accent' : 'text-white/60'
+                  }`}
+                >
+                  {lng}
+                </button>
+              ))}
+            </div>
+          </div>
+          <nav className="space-y-6 text-3xl font-playfair text-white">
+            {links.map((link, index) => (
+              <motion.div key={link.href} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * index }}>
+                <Link href={link.href} onClick={() => onOpenChange(false)} className="block">
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
+          <div className="mt-auto space-y-4">
+            <Button
+              className="w-full"
+              onClick={() => window.open(whatsAppLink('Здравствуйте! Хочу забронировать стол в Black Island.'), '_blank')}
+            >
+              {dictionary.hero.button}
+            </Button>
+            <p className="text-sm text-white/60">Konyaaltı • Antalya</p>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+};
