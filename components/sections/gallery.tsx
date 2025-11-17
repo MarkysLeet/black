@@ -23,7 +23,7 @@ export const GallerySection = () => {
           {galleryImages.map((image, index) => (
             <motion.button
               key={image.id}
-              className="mb-4 block w-full overflow-hidden rounded-3xl"
+              className="mb-4 block w-full"
               style={{ breakInside: 'avoid' }}
               onClick={() => setSelected(image.image)}
               initial={{ opacity: 0, y: 30 }}
@@ -31,13 +31,13 @@ export const GallerySection = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
             >
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: image.orientation === 'portrait' ? '3/4' : '4/3' }}>
+              <div className="relative aspect-square w-full overflow-hidden rounded-3xl">
                 <Image
                   src={image.image}
                   alt={image.title}
                   fill
                   sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
-                  className="rounded-3xl object-cover transition-transform duration-700 hover:scale-105"
+                  className="aspect-square rounded-3xl object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </motion.button>

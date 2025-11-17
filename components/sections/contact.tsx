@@ -40,7 +40,7 @@ export const ContactSection = () => {
           <div className="overflow-hidden rounded-[30px]">
             <iframe
               title="Black Island Map"
-              src="https://www.google.com/maps/place//data=!4m2!3m1!1s0x14c393ec05753185:0xf84dc81536c99edf?sa=X&ved=1t:8290&ictx=111"
+              src="https://www.google.com/maps?q=Liman%2C%20Bo%C4%9Fa%C3%A7ay%20Cd.%20Yasemin%20Apartman%C4%B1%20No%3A17%20%2F%20B%20D%3A1%2C%2007130%20Konyaalt%C4%B1%2FAntalya&output=embed"
               width="100%"
               height="500"
               className="w-full border-0"
@@ -56,12 +56,12 @@ export const ContactSection = () => {
             </div>
             <p className="mt-4 whitespace-pre-line text-lg text-white">{dictionary.sections.contact.address}</p>
             <a
-              href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x14c393ec05753185:0xf84dc81536c99edf?sa=X&ved=1t:8290&ictx=111"
+              href="https://www.google.com/maps?q=Liman%2C%20Bo%C4%9Fa%C3%A7ay%20Cd.%20Yasemin%20Apartman%C4%B1%20No%3A17%20%2F%20B%20D%3A1%2C%2007130%20Konyaalt%C4%B1%2FAntalya&output=embed"
               target="_blank"
               rel="noreferrer"
               className="mt-6 inline-flex items-center justify-center rounded-full border border-transparent bg-[#d4af37] px-6 py-3 text-sm font-medium uppercase tracking-[0.3em] text-black transition-colors hover:bg-white"
             >
-              Открыть в Google Maps
+              Маршрут
             </a>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Instagram, Phone, Mail } from 'lucide-react';
+import { Instagram, Phone, Mail, Binoculars } from 'lucide-react';
 import { useDictionary } from '@/components/providers/language-provider';
 
 export const Footer = () => {
@@ -39,8 +39,7 @@ export const Footer = () => {
             className="text-accent"
             aria-label="Tripadvisor"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://i.imgur.com/1u1oUOx.png" alt="Tripadvisor" className="h-5 w-5" />
+            <Binoculars className="h-5 w-5" />
           </Link>
         </div>
       </div>

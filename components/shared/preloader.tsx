@@ -26,7 +26,7 @@ export const Preloader = () => {
           <img
             src="https://i.imgur.com/sND6vWC.png"
             alt="Black Island logo"
-            className="h-16 w-16 object-contain"
+            className="h-20 w-20 object-contain"
           />
         </div>
         <p className="font-playfair text-2xl text-white">Black Island</p>
