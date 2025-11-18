@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -23,6 +23,7 @@ export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -30,6 +31,33 @@ export const Header = () => {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const clearDropdownTimer = () => {
+    if (dropdownCloseTimer.current) {
+      clearTimeout(dropdownCloseTimer.current);
+      dropdownCloseTimer.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (dropdownCloseTimer.current) {
+        clearTimeout(dropdownCloseTimer.current);
+      }
+    };
+  }, []);
+
+  const scheduleDropdownClose = () => {
+    clearDropdownTimer();
+    dropdownCloseTimer.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 1000);
+  };
+
+  const openDropdown = (key: string) => {
+    clearDropdownTimer();
+    setActiveDropdown(key);
+  };
 
   const navItems = useMemo<NavItem[]>(() => {
     const menuSubLinks = menuCategories.map((category) => ({
@@ -90,29 +118,30 @@ export const Header = () => {
         </Link>
         <nav
           className="relative hidden items-center gap-10 text-sm uppercase tracking-[0.4em] text-white/70 lg:flex"
-          onMouseLeave={() => setActiveDropdown(null)}
+          onMouseLeave={scheduleDropdownClose}
+          onMouseEnter={clearDropdownTimer}
         >
           {navItems.map((item) => (
             <div key={item.key} className="relative">
               <Link
                 href={item.href}
                 className="hover:text-white"
-                onMouseEnter={() => item.subLinks && setActiveDropdown(item.key)}
+                onMouseEnter={() => item.subLinks && openDropdown(item.key)}
               >
                 {item.label}
               </Link>
               {item.subLinks && (
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {activeDropdown === item.key && (
                     <motion.div
                       key={`${item.key}-dropdown`}
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-1/2 top-full z-50 mt-4 w-56 -translate-x-1/2 rounded-2xl bg-[#111111] p-4 shadow-2xl"
-                      onMouseEnter={() => setActiveDropdown(item.key)}
-                      onMouseLeave={() => setActiveDropdown(null)}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                      className="absolute left-0 top-full z-50 mt-4 w-56 rounded-2xl bg-[#111111] p-4 shadow-2xl"
+                      onMouseEnter={() => openDropdown(item.key)}
+                      onMouseLeave={scheduleDropdownClose}
                     >
                       <div className="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-white/80">
                         {item.subLinks.map((subLink) => (

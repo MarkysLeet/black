@@ -46,9 +46,13 @@ export const MenuTabs = () => {
 
   return (
     <Tabs value={active} onValueChange={(value) => setActive(value as MenuCategory)}>
-      <TabsList>
+      <TabsList className="flex-wrap justify-center gap-3 sm:gap-4 lg:flex-nowrap lg:justify-between">
         {tabs.map((tab) => (
-          <TabsTrigger key={tab.key} value={tab.key}>
+          <TabsTrigger
+            key={tab.key}
+            value={tab.key}
+            className="flex-auto basis-full whitespace-normal text-sm leading-tight sm:basis-[calc(50%-0.75rem)] lg:flex-1 lg:basis-auto"
+          >
             {tab.label}
           </TabsTrigger>
         ))}
