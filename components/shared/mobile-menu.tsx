@@ -29,7 +29,7 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent>
-        <div className="relative flex h-full flex-col gap-10">
+        <div className="relative flex h-full flex-col gap-10 overflow-y-auto pr-2">
           <div className="flex items-center justify-between">
             <button
               type="button"
@@ -71,7 +71,7 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
             ))}
           </nav>
           <div className="space-y-4 pb-[calc(env(safe-area-inset-bottom)+140px)]" />
-          <div className="fixed left-0 right-0 bottom-[calc(env(safe-area-inset-bottom)+24px)] z-[999] w-full px-6">
+          <div className="fixed left-0 right-0 bottom-[calc(env(safe-area-inset-bottom)+24px)] z-[999] w-full max-w-[480px] px-6 mx-auto">
             <div className="space-y-3 rounded-[28px] bg-[#050505]/80 p-4 backdrop-blur">
               <Button
                 className="w-full"
