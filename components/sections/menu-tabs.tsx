@@ -1,19 +1,36 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { menuItems, type MenuCategory } from '@/data/menu';
+import { menuItems, menuCategories, type MenuCategory } from '@/data/menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { whatsAppLink } from '@/lib/utils';
 import { useDictionary } from '@/components/providers/language-provider';
 
-const categories: MenuCategory[] = ['appetizers', 'soups', 'russian', 'mediterranean', 'desserts', 'drinks'];
+const categories: MenuCategory[] = menuCategories.map((category) => category.key);
 
 export const MenuTabs = () => {
   const { dictionary } = useDictionary();
   const [active, setActive] = useState<MenuCategory>('appetizers');
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window === 'undefined') return;
+      const hash = window.location.hash.replace('#', '') as MenuCategory;
+      if (categories.includes(hash)) {
+        setActive(hash);
+        requestAnimationFrame(() => {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   const tabs = useMemo(
     () => [
@@ -38,7 +55,7 @@ export const MenuTabs = () => {
       </TabsList>
       {categories.map((category) => (
         <TabsContent value={category} key={category}>
-          <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
+          <div id={category} className="grid gap-10 md:grid-cols-2 xl:grid-cols-3">
             {menuItems
               .filter((item) => item.category === category)
               .map((item, index) => (

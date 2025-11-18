@@ -12,7 +12,7 @@ export const GallerySection = () => {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <section className="bg-[#0a0a0a] py-20">
+    <section id="interior" className="bg-[#0a0a0a] py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 flex flex-col gap-4 text-center">
           <p className="text-sm uppercase tracking-[0.4em] text-accent">Interior</p>

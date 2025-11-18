@@ -24,9 +24,9 @@ export const Preloader = () => {
         <div className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/40">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://i.imgur.com/sND6vWC.png"
+            src="https://i.imgur.com/qyalAmQ.png"
             alt="Black Island logo"
-            className="h-20 w-20 object-contain"
+            className="h-24 w-24 object-contain"
           />
         </div>
         <p className="font-playfair text-2xl text-white">Black Island</p>

@@ -10,7 +10,7 @@ export const MenuPreview = () => {
   const { dictionary } = useDictionary();
   const featured = menuItems.slice(0, 6);
   return (
-    <section className="bg-[#0a0a0a] py-20">
+    <section id="from-chef" className="bg-[#0a0a0a] py-20">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-10 flex flex-col gap-4 text-center">
           <p className="text-sm uppercase tracking-[0.4em] text-accent">Signature</p>

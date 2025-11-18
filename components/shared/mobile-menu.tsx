@@ -11,7 +11,7 @@ import type { Dictionary, Locale } from '@/lib/i18n/dictionary';
 interface MobileMenuProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  links: { href: string; label: string }[];
+  links: { key: string; href: string; label: string; subLinks?: { key: string; href: string; label: string }[] }[];
   dictionary: Dictionary;
   locale: Locale;
   setLocale: (locale: Locale) => void;
@@ -55,9 +55,18 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
           <nav className="space-y-6 text-3xl font-playfair text-white">
             {links.map((link, index) => (
               <motion.div key={link.href} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * index }}>
-                <Link href={link.href} onClick={() => onOpenChange(false)} className="block font-medium">
+                <Link href={link.href} onClick={() => onOpenChange(false)} className="block font-normal">
                   {link.label}
                 </Link>
+                {link.subLinks && (
+                  <div className="ml-4 mt-3 space-y-3 text-sm font-normal uppercase tracking-[0.25em] text-white/60">
+                    {link.subLinks.map((sub) => (
+                      <Link key={sub.key} href={sub.href} onClick={() => onOpenChange(false)} className="block">
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             ))}
           </nav>

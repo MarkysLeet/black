@@ -1,12 +1,20 @@
 'use client';
 
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useDictionary } from '@/components/providers/language-provider';
 
 export const ContactSection = () => {
   const { dictionary } = useDictionary();
   return (
-    <section className="py-20">
+    <motion.section
+      id="contacts"
+      className="py-20"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 text-center">
           <p className="text-sm uppercase tracking-[0.4em] text-accent">Contact</p>
@@ -66,6 +74,6 @@ export const ContactSection = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

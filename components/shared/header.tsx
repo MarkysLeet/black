@@ -1,24 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { useDictionary } from '@/components/providers/language-provider';
 import { whatsAppLink } from '@/lib/utils';
+import { menuCategories } from '@/data/menu';
 import { MobileMenu } from './mobile-menu';
 
-const navLinks = [
-  { href: '/', key: 'home' },
-  { href: '/menu', key: 'menu' },
-  { href: '/about', key: 'about' },
-];
+type NavItem = {
+  key: 'home' | 'menu' | 'about';
+  href: string;
+  label: string;
+  subLinks?: { key: string; href: string; label: string }[];
+};
 
 export const Header = () => {
   const { dictionary, setLocale, locale } = useDictionary();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -27,7 +31,41 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const links = navLinks.map((link) => ({ href: link.href, label: dictionary.nav[link.key as keyof typeof dictionary.nav] }));
+  const navItems = useMemo<NavItem[]>(() => {
+    const menuSubLinks = menuCategories.map((category) => ({
+      key: category.key,
+      href: `/menu#${category.key}`,
+      label: dictionary.menuPage.tabs[category.key as keyof typeof dictionary.menuPage.tabs],
+    }));
+
+    return [
+      {
+        key: 'home',
+        href: '/',
+        label: dictionary.nav.home,
+        subLinks: [
+          { key: 'from-chef', href: '/#from-chef', label: dictionary.sections.signature.title },
+          { key: 'interior', href: '/#interior', label: dictionary.sections.gallery.title },
+        ],
+      },
+      {
+        key: 'menu',
+        href: '/menu',
+        label: dictionary.nav.menu,
+        subLinks: menuSubLinks,
+      },
+      {
+        key: 'about',
+        href: '/about',
+        label: dictionary.nav.about,
+        subLinks: [
+          { key: 'team', href: '/about#team', label: dictionary.sections.team.title },
+          { key: 'contacts', href: '/about#contacts', label: dictionary.sections.contact.title },
+          { key: 'history', href: '/about#history', label: dictionary.sections.history.title },
+        ],
+      },
+    ];
+  }, [dictionary]);
 
   return (
     <header
@@ -40,9 +78,9 @@ export const Header = () => {
           <div className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://i.imgur.com/sND6vWC.png"
+              src="https://i.imgur.com/qyalAmQ.png"
               alt="Black Island logo"
-              className="h-10 w-10 object-contain"
+              className="h-12 w-12 object-contain"
             />
           </div>
           <div>
@@ -50,11 +88,44 @@ export const Header = () => {
             <p className="text-xs tracking-[0.3em] text-accent">Cafe Restaurant</p>
           </div>
         </Link>
-        <nav className="hidden items-center gap-10 text-sm uppercase tracking-[0.4em] text-white/70 lg:flex">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-white">
-              {link.label}
-            </Link>
+        <nav
+          className="relative hidden items-center gap-10 text-sm uppercase tracking-[0.4em] text-white/70 lg:flex"
+          onMouseLeave={() => setActiveDropdown(null)}
+        >
+          {navItems.map((item) => (
+            <div key={item.key} className="relative">
+              <Link
+                href={item.href}
+                className="hover:text-white"
+                onMouseEnter={() => item.subLinks && setActiveDropdown(item.key)}
+              >
+                {item.label}
+              </Link>
+              {item.subLinks && (
+                <AnimatePresence>
+                  {activeDropdown === item.key && (
+                    <motion.div
+                      key={`${item.key}-dropdown`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute left-1/2 top-full z-50 mt-4 w-56 -translate-x-1/2 rounded-2xl bg-[#111111] p-4 shadow-2xl"
+                      onMouseEnter={() => setActiveDropdown(item.key)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <div className="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-white/80">
+                        {item.subLinks.map((subLink) => (
+                          <Link key={subLink.key} href={subLink.href} className="hover:text-accent">
+                            {subLink.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
+            </div>
           ))}
         </nav>
         <div className="hidden items-center gap-4 lg:flex">
@@ -86,7 +157,7 @@ export const Header = () => {
         <MobileMenu
           open={menuOpen}
           onOpenChange={setMenuOpen}
-          links={links}
+          links={navItems}
           dictionary={dictionary}
           locale={locale}
           setLocale={setLocale}

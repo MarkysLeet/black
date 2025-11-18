@@ -23,7 +23,7 @@ export const Hero = () => {
           <div className="flex h-28 w-28 items-center justify-center rounded-full border border-white/30">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://i.imgur.com/sND6vWC.png"
+              src="https://i.imgur.com/qyalAmQ.png"
               alt="Black Island logo"
               className="h-20 w-20 object-contain"
             />
