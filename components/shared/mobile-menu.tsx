@@ -52,7 +52,7 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
               ))}
             </div>
           </div>
-          <nav className="space-y-6 text-3xl font-playfair text-white">
+          <nav className="space-y-6 text-2xl font-playfair text-white">
             {links.map((link, index) => (
               <motion.div key={link.href} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 * index }}>
                 <Link href={link.href} onClick={() => onOpenChange(false)} className="block font-normal">
@@ -70,14 +70,16 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
               </motion.div>
             ))}
           </nav>
-          <div className="mt-auto space-y-4">
-            <Button
-              className="w-full"
-              onClick={() => window.open(whatsAppLink('Здравствуйте! Хочу забронировать стол в Black Island.'), '_blank')}
-            >
-              {dictionary.hero.button}
-            </Button>
-            <p className="text-sm text-white/60">Konyaaltı • Antalya</p>
+          <div className="mt-auto space-y-4 pb-4">
+            <div className="sticky bottom-0 space-y-3 rounded-[28px] bg-[#050505]/80 p-4 backdrop-blur">
+              <Button
+                className="w-full"
+                onClick={() => window.open(whatsAppLink('Здравствуйте! Хочу забронировать стол в Black Island.'), '_blank')}
+              >
+                {dictionary.hero.button}
+              </Button>
+              <p className="text-center text-sm text-white/60">Konyaaltı • Antalya</p>
+            </div>
           </div>
         </div>
       </SheetContent>

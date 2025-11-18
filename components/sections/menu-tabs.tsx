@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { menuItems, menuCategories, type MenuCategory } from '@/data/menu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -17,8 +17,6 @@ export const MenuTabs = () => {
   const [active, setActive] = useState<MenuCategory>('appetizers');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
-  const currentIndex = useMemo(() => categories.indexOf(active), [active]);
 
   useEffect(() => {
     const handleHash = () => {
@@ -62,12 +60,6 @@ export const MenuTabs = () => {
     [dictionary]
   );
 
-  const cycleCategory = (direction: 'next' | 'prev') => {
-    const delta = direction === 'next' ? 1 : -1;
-    const newIndex = (currentIndex + delta + categories.length) % categories.length;
-    setActive(categories[newIndex]);
-  };
-
   const selectCategory = (category: MenuCategory) => {
     setActive(category);
     setDropdownOpen(false);
@@ -88,15 +80,7 @@ export const MenuTabs = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-      <div className="mt-6 flex items-center justify-center gap-4 lg:hidden">
-        <button
-          type="button"
-          onClick={() => cycleCategory('prev')}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-accent hover:text-accent"
-          aria-label="Previous category"
-        >
-          <ChevronLeft className="h-5 w-5" />
-        </button>
+      <div className="mt-6 flex justify-center lg:hidden">
         <div className="relative" ref={dropdownRef}>
           <button
             type="button"
@@ -131,14 +115,6 @@ export const MenuTabs = () => {
             )}
           </AnimatePresence>
         </div>
-        <button
-          type="button"
-          onClick={() => cycleCategory('next')}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-accent hover:text-accent"
-          aria-label="Next category"
-        >
-          <ChevronRight className="h-5 w-5" />
-        </button>
       </div>
       {categories.map((category) => (
         <TabsContent value={category} key={category} className="p-0">

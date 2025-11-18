@@ -92,7 +92,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     sections: {
       signature: {
-      title: 'От шефа',
+        title: 'Рекомендации шефа',
         subtitle: 'Шесть культовых блюд, которые сформировали наш вкус Анталии.',
       },
       gallery: {
