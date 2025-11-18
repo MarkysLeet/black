@@ -145,7 +145,15 @@ export const Header = () => {
                     >
                       <div className="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-white/80">
                         {item.subLinks.map((subLink) => (
-                          <Link key={subLink.key} href={subLink.href} className="hover:text-accent">
+                          <Link
+                            key={subLink.key}
+                            href={subLink.href}
+                            className="hover:text-accent"
+                            onClick={() => {
+                              clearDropdownTimer();
+                              setActiveDropdown(null);
+                            }}
+                          >
                             {subLink.label}
                           </Link>
                         ))}

@@ -25,7 +25,7 @@ export const Hero = () => {
             <img
               src="https://i.imgur.com/qyalAmQ.png"
               alt="Black Island logo"
-              className="h-20 w-20 object-contain"
+              className="h-24 w-24 object-contain"
             />
           </div>
         </motion.div>
