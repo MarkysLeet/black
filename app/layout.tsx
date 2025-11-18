@@ -95,7 +95,7 @@ const jsonLd = {
   },
   telephone: '+905539545078',
   servesCuisine: ['Russian', 'Mediterranean'],
-  openingHours: 'Mo-Su 08:00-22:00',
+  openingHours: 'Mo-Su 10:00-00:00',
   priceRange: '$$$',
   geo: {
     '@type': 'GeoCoordinates',
@@ -104,8 +104,8 @@ const jsonLd = {
   },
   url: siteUrl,
   sameAs: [
-    'https://www.instagram.com/blackislandcafe',
-    'https://www.facebook.com/blackislandcafe',
+    'https://www.instagram.com/_blackisland_',
+    'https://www.tripadvisor.com/Restaurant_Review-g297962-d21410372-Reviews-Black_Island_Cafe_Restaurant-Antalya_Turkish_Mediterranean_Coast.html',
     'https://wa.me/905418462550',
   ],
   menu: `${siteUrl}/menu`,

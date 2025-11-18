@@ -148,8 +148,7 @@ export const menuItems: MenuItem[] = [
     description: 'Воздушный безе, инжир и крем из шампанского.',
     price: '310 ₺ / 10 €',
     category: 'desserts',
-    image:
-      'https://images.unsplash.com/photo-1464306076886-da185f6a9d12?auto=format&fit=crop&w=800&q=80',
+    image: 'https://i.imgur.com/MH0LaFq.png',
   },
   {
     id: 'espresso-martini',

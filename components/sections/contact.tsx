@@ -1,12 +1,53 @@
 'use client';
 
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useDictionary } from '@/components/providers/language-provider';
 
+const mapsLink = 'https://maps.app.goo.gl/CrnMoK5aAU5xq8Ci7';
+
 export const ContactSection = () => {
-  const { dictionary } = useDictionary();
+  const { dictionary, locale } = useDictionary();
+  const isRu = locale === 'ru';
+  const labels = {
+    email: isRu ? 'Почта' : 'Email',
+    phone: isRu ? 'Телефон' : 'Phone',
+    hours: isRu ? 'Время работы' : 'Hours',
+    address: isRu ? 'Адрес' : 'Address',
+  };
+
+  const contactDetails = [
+    {
+      key: 'email',
+      label: labels.email,
+      value: dictionary.sections.contact.email,
+      icon: Mail,
+      href: `mailto:${dictionary.sections.contact.email}`,
+    },
+    {
+      key: 'phone',
+      label: labels.phone,
+      value: dictionary.sections.contact.phone,
+      icon: Phone,
+      href: `tel:${dictionary.sections.contact.phone.replace(/\s+/g, '')}`,
+    },
+    {
+      key: 'hours',
+      label: labels.hours,
+      value: '10:00 – 00:00',
+      icon: Clock,
+    },
+  ];
+
   return (
-    <section className="py-20">
+    <motion.section
+      id="contacts"
+      className="py-20"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-12 text-center">
           <p className="text-sm uppercase tracking-[0.4em] text-accent">Contact</p>
@@ -14,33 +55,44 @@ export const ContactSection = () => {
           <p className="mt-2 text-[#e5e5e5]/80">{dictionary.sections.contact.subtitle}</p>
         </div>
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="card-gold rounded-[30px] p-8">
-            <div className="flex items-center gap-3 text-accent">
-              <Mail />
-              <span>Email</span>
-            </div>
-            <p className="mt-4 text-lg text-white">{dictionary.sections.contact.email}</p>
-          </div>
-          <div className="card-gold rounded-[30px] p-8">
-            <div className="flex items-center gap-3 text-accent">
-              <Phone />
-              <span>Phone</span>
-            </div>
-            <p className="mt-4 text-lg text-white">{dictionary.sections.contact.phone}</p>
-          </div>
-          <div className="card-gold rounded-[30px] p-8">
-            <div className="flex items-center gap-3 text-accent">
-              <Clock />
-              <span>Hours</span>
-            </div>
-            <p className="mt-4 text-lg text-white">08:00 – 22:00</p>
-          </div>
+          {contactDetails.map((detail) => {
+            const Icon = detail.icon;
+
+            if (detail.href) {
+              return (
+                <a
+                  key={detail.key}
+                  href={detail.href}
+                  className="card-gold block rounded-[30px] p-8 text-center text-white transition-colors hover:border-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-left"
+                >
+                  <div className="flex items-center justify-center gap-3 text-accent md:justify-start">
+                    <Icon />
+                    <span>{detail.label}</span>
+                  </div>
+                  <p className="mt-4 text-lg text-white">{detail.value}</p>
+                </a>
+              );
+            }
+
+            return (
+              <div
+                key={detail.key}
+                className="card-gold rounded-[30px] p-8 text-center text-white md:text-left"
+              >
+                <div className="flex items-center justify-center gap-3 text-accent md:justify-start">
+                  <Icon />
+                  <span>{detail.label}</span>
+                </div>
+                <p className="mt-4 text-lg text-white">{detail.value}</p>
+              </div>
+            );
+          })}
         </div>
         <div className="mt-10 grid gap-8 lg:grid-cols-[2fr,1fr]">
           <div className="overflow-hidden rounded-[30px]">
             <iframe
               title="Black Island Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.574301898339!2d30.633481176464666!3d36.85729127228373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c39160d0d8f5c9%3A0x7aaf8ba4a8988e85!2sKonyaalt%C4%B1%2C%20Antalya!5e0!3m2!1sru!2str!4v1712486400000!5m2!1sru!2str"
+              src="https://www.google.com/maps?q=Liman%2C%20Bo%C4%9Fa%C3%A7ay%20Cd.%20Yasemin%20Apartman%C4%B1%20No%3A17%20%2F%20B%20D%3A1%2C%2007130%20Konyaalt%C4%B1%2FAntalya&output=embed"
               width="100%"
               height="500"
               className="w-full border-0"
@@ -49,15 +101,30 @@ export const ContactSection = () => {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
-          <div className="card-gold rounded-[30px] p-8">
-            <div className="flex items-center gap-3 text-accent">
+          <div className="card-gold rounded-[30px] p-8 text-center text-white md:text-left">
+            <div className="flex items-center justify-center gap-3 text-accent md:justify-start">
               <MapPin />
-              <span>Address</span>
+              <span>{labels.address}</span>
             </div>
-            <p className="mt-4 whitespace-pre-line text-lg text-white">{dictionary.sections.contact.address}</p>
+            <a
+              href={mapsLink}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 block whitespace-pre-line text-lg text-white transition-colors hover:text-accent"
+            >
+              {dictionary.sections.contact.address}
+            </a>
+            <a
+              href={mapsLink}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center justify-center rounded-full border border-transparent bg-[#d4af37] px-6 py-3 text-sm font-medium uppercase tracking-[0.3em] text-black transition-colors hover:bg-white"
+            >
+              Маршрут
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

@@ -1,14 +1,20 @@
 'use client';
 
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { useDictionary } from '@/components/providers/language-provider';
 
 export const AboutHero = () => {
   const { dictionary } = useDictionary();
   return (
-    <div className="relative mb-16 overflow-hidden rounded-[40px]">
+    <motion.div
+      className="relative mb-16 overflow-hidden rounded-[40px]"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+    >
       <Image
-        src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=80"
+        src="https://i.imgur.com/DJLmZxt.png"
         alt="Команда Black Island"
         width={1600}
         height={900}
@@ -20,6 +26,6 @@ export const AboutHero = () => {
         <h1 className="mt-4 font-playfair text-5xl">Black Island Cafe Restaurant</h1>
         <p className="mt-4 text-lg text-white/80">{dictionary.aboutPage.story}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
