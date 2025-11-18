@@ -59,7 +59,7 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
                   {link.label}
                 </Link>
                 {link.subLinks && (
-                  <div className="ml-4 mt-3 space-y-3 text-sm font-light uppercase tracking-[0.3em] text-white/80">
+                  <div className="ml-4 mt-3 space-y-3 text-sm font-light font-inter uppercase tracking-[0.3em] text-white/80">
                     {link.subLinks.map((sub) => (
                       <Link key={sub.key} href={sub.href} onClick={() => onOpenChange(false)} className="block">
                         {sub.label}
@@ -70,8 +70,8 @@ export const MobileMenu = ({ open, onOpenChange, links, dictionary, locale, setL
               </motion.div>
             ))}
           </nav>
-          <div className="mt-auto space-y-4 pb-6">
-            <div className="sticky bottom-6 space-y-3 rounded-[28px] bg-[#050505]/80 p-4 pb-[calc(env(safe-area-inset-bottom,0px)+0.75rem)] backdrop-blur">
+          <div className="mt-auto space-y-4 pb-[calc(env(safe-area-inset-bottom)+24px)]">
+            <div className="sticky bottom-6 space-y-3 rounded-[28px] bg-[#050505]/80 p-4 backdrop-blur">
               <Button
                 className="w-full"
                 onClick={() => window.open(whatsAppLink('Здравствуйте! Хочу забронировать стол в Black Island.'), '_blank')}
